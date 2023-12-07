@@ -4,7 +4,8 @@ USE JavaChallenge;
 
 CREATE TABLE `Server`(
 	`idServer`INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50)
+    `name` VARCHAR(50),
+    `macAddress` char(17)
 );
 
 CREATE TABLE `ComponentType`(
