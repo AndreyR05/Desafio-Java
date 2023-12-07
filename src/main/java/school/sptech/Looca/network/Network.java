@@ -3,7 +3,8 @@ package school.sptech.Looca.network;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.rede.Rede;
 
-import school.sptech.serverDao.ServerDao;
+import school.sptech.dao.ServerDao;
+
 
 public class Network {
     ServerDao serverDao = new ServerDao();

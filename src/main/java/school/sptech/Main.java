@@ -1,16 +1,19 @@
 package school.sptech;
 
+import java.util.List;
 import java.util.Scanner;
 
 
 import school.sptech.Looca.network.Network;
 import school.sptech.Terminal.TerminalOptionPrinter;
-import school.sptech.serverDao.ServerDao;
+import school.sptech.dao.ComponentDao;
+import school.sptech.dao.ServerDao;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ServerDao serverDao = new ServerDao();
+        ComponentDao componentDao = new ComponentDao();
         Network net = new Network();
         int option = 0;
 
@@ -39,10 +42,17 @@ public class Main {
             else if(option == 2){
                 TerminalOptionPrinter.printConfiguration();
                 String config  = sc.nextLine();
-                String[] configChoices = config.split(",");
 
-                for (String string : configChoices) {
-                    // TODO: logic to update configuration
+                List<Integer> configChoicesInt = 
+                        List.of(config.split(","))
+                        .stream()
+                        .map(Integer::parseInt)
+                        .toList();
+
+                for (Integer choice : configChoicesInt) {
+                    ComponentDao.toggleComponent(mac, true, choice);
+                    
+
                 }
             }
             
