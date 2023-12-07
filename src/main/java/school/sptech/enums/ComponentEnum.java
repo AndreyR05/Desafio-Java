@@ -1,6 +1,6 @@
 package school.sptech.enums;
 
-public enum Component {
+public enum ComponentEnum {
     CPU(1, "CPU"),
     MEMORY(2, "Memory"),
     DISK(3, "Disk");
@@ -8,7 +8,7 @@ public enum Component {
     private int value;
     private String name;
 
-    Component(int value, String name){
+    ComponentEnum(int value, String name){
         this.value = value;
         this.name = name;
     }

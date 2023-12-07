@@ -1,8 +1,8 @@
 package school.sptech;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
-
 
 import school.sptech.Looca.network.Network;
 import school.sptech.Terminal.TerminalOptionPrinter;
@@ -16,7 +16,6 @@ public class Main {
         ComponentDao componentDao = new ComponentDao();
         Network net = new Network();
         int option = 0;
-
 
         String mac = net.getMacAddress();
         if(!net.verifyMacAddress(mac)){
@@ -49,10 +48,17 @@ public class Main {
                         .map(Integer::parseInt)
                         .toList();
 
-                for (Integer choice : configChoicesInt) {
-                    ComponentDao.toggleComponent(mac, true, choice);
-                    
+                List<Component> components = componentDao.searchComponentByMac(mac);
+                System.out.println(components);
 
+                for (Integer choice : configChoicesInt) {
+                    Optional<Component> component = components.stream()
+                        .filter(comp -> comp.getFkComponentType().equals(choice))
+                        .findFirst();
+
+                    if(component.isPresent()){
+                        componentDao.toggleComponent(mac, !component.get().isEnable(), choice);
+                    }
                 }
             }
             
