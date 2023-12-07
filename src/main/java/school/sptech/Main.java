@@ -8,6 +8,7 @@ import school.sptech.Looca.network.Network;
 import school.sptech.Terminal.TerminalOptionPrinter;
 import school.sptech.dao.ComponentDao;
 import school.sptech.dao.ServerDao;
+import school.sptech.model.Component;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,7 +50,6 @@ public class Main {
                         .toList();
 
                 List<Component> components = componentDao.searchComponentByMac(mac);
-                System.out.println(components);
 
                 for (Integer choice : configChoicesInt) {
                     Optional<Component> component = components.stream()

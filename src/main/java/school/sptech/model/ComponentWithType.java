@@ -1,4 +1,4 @@
-package school.sptech;
+package school.sptech.model;
 
 import school.sptech.enums.ComponentEnum;
 

@@ -1,4 +1,4 @@
-package school.sptech;
+package school.sptech.model;
 
 public class Component {
     private Integer idComponent;
