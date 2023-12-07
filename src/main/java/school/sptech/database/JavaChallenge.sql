@@ -16,6 +16,7 @@ CREATE TABLE `ComponentType`(
 CREATE TABLE `Component`(
 	`idComponent` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50),
+    `enable` BOOLEAN,
     `fkComponentType` INT,
     FOREIGN KEY (`fkComponentType`) REFERENCES `ComponentType`(`idComponentType`),
 	`fkServer` INT,
@@ -32,6 +33,6 @@ CREATE TABLE `Metric`(
 CREATE TABLE `Capture`(
 	`idCapture` INT PRIMARY KEY AUTO_INCREMENT,
     `value` DECIMAL(6,2),
-    `fkMetric` INT,
-    FOREIGN KEY (`fkMetric`) REFERENCES `Metric`(`idMetric`)
+    `fkComponent` INT,
+    FOREIGN KEY (`fkComponent`) REFERENCES `Component`(`idComponent`)
 );
