@@ -1,4 +1,4 @@
-package school.sptech.Terminal;
+package school.sptech.terminal;
 
 public class TerminalOptionPrinter {
     static public void printServerOptions(){

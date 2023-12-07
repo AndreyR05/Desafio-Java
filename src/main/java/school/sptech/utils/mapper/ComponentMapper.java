@@ -1,11 +1,11 @@
-package school.sptech.mapper;
+package school.sptech.utils.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import school.sptech.Component;
+import school.sptech.model.Component;
 
 public class ComponentMapper implements RowMapper<Component>{
     @Override

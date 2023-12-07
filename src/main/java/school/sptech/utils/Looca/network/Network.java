@@ -1,9 +1,9 @@
-package school.sptech.Looca.network;
+package school.sptech.utils.Looca.network;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.rede.Rede;
 
-import school.sptech.dao.ServerDao;
+import school.sptech.database.dao.ServerDao;
 
 
 public class Network {

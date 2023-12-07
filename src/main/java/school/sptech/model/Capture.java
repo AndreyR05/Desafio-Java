@@ -1,2 +1,5 @@
-package school.sptech.model;public class capture {
+package school.sptech.model;
+
+public class Capture {
+    
 }

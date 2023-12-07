@@ -1,4 +1,4 @@
-package school.sptech.dao;
+package school.sptech.database.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.database.DatabaseConnection;

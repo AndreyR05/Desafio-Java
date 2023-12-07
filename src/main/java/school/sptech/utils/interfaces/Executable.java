@@ -1,4 +1,4 @@
-package school.sptech.interfaces;
+package school.sptech.utils.interfaces;
 
 public interface Executable {
 

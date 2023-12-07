@@ -1,4 +1,4 @@
-package school.sptech.enums;
+package school.sptech.utils.enums;
 
 public enum ComponentEnum {
     CPU(1, "CPU"),

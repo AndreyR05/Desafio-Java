@@ -1,12 +1,12 @@
-package school.sptech.mapper;
+package school.sptech.utils.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import school.sptech.ComponentWithType;
-import school.sptech.enums.ComponentEnum;
+import school.sptech.model.ComponentWithType;
+import school.sptech.utils.enums.ComponentEnum;
 
 public class ComponentWithTypeMapper implements RowMapper<ComponentWithType>{
     @Override

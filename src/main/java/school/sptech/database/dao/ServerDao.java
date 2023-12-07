@@ -1,11 +1,11 @@
-package school.sptech.dao;
+package school.sptech.database.dao;
 
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import school.sptech.Server;
 import school.sptech.database.DatabaseConnection;
-import school.sptech.mapper.ServerMapper;
+import school.sptech.model.Server;
+import school.sptech.utils.mapper.ServerMapper;
 
 public class ServerDao {
     private JdbcTemplate connection = new DatabaseConnection().getDatabaseConection();
