@@ -52,6 +52,12 @@ public class Main {
                         .toList();
 
                 for (Integer choice : configChoicesInt) {
+                    if (choice == 0) break;
+                    if (choice > 3){
+                        System.out.println("A opção %d não existe, ela será ignorada".formatted(choice));
+                        continue;
+                    }
+
                     Optional<ComponentWithType> component = components.stream()
                         .filter(comp -> comp.getFkComponentType().equals(choice))
                         .findFirst();

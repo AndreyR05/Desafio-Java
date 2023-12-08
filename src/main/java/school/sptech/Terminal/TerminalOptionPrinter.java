@@ -23,14 +23,15 @@ public class TerminalOptionPrinter {
                 comp -> comp.isEnable() ? "Ativo" : "Inativo"
             ));
 
-
         System.out.println("""
         1) Cpu -> %s
         2) Ram -> %s
         3) Disco -> %s
 
+        0) Voltar
+
         Para alterar digite o numero, para mais de um valor use virgula 
-        examplo: 1,2
+        Examplo: 1,2
         """.formatted(
                 map.get(ComponentEnum.CPU),
                 map.get(ComponentEnum.RAM),
