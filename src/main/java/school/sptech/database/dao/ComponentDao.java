@@ -38,5 +38,15 @@ public class ComponentDao {
 
         return components;
     }
-    
+
+    public void insertComponent(String name, String mac, int type){
+        connection.update(
+            """
+                INSERT INTO Component (name, fkServer, fkComponentType, enable) values (
+                    ?, (SELECT idServer FROM Server WHERE macAddress = ?), ?, 1
+                );
+            """,
+            name, type, mac
+        );
+    }
 }
