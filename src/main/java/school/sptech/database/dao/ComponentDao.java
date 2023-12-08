@@ -46,7 +46,7 @@ public class ComponentDao {
                     ?, (SELECT idServer FROM Server WHERE macAddress = ?), ?, 1
                 );
             """,
-            name, type, mac
+            name, mac, type
         );
     }
 }

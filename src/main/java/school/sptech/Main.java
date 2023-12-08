@@ -4,19 +4,33 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import com.github.britooo.looca.api.group.discos.DiscoGrupo;
+import com.github.britooo.looca.api.group.memoria.Memoria;
+import com.github.britooo.looca.api.group.processador.Processador;
+
 import school.sptech.database.dao.ComponentDao;
 import school.sptech.database.dao.ServerDao;
 import school.sptech.model.ComponentWithType;
 import school.sptech.terminal.TerminalOptionPrinter;
+import school.sptech.utils.Looca.cpu.Cpu;
+import school.sptech.utils.Looca.disk.Disk;
+import school.sptech.utils.Looca.memory.Memory;
 import school.sptech.utils.Looca.network.Network;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         ServerDao serverDao = new ServerDao();
         ComponentDao componentDao = new ComponentDao();
+
         Network net = new Network();
+        Cpu cpu = new Cpu();
+        Memory ram = new Memory();
+        Disk disk = new Disk();
+
         int option = 0;
+
 
         String mac = net.getMacAddress();
         if(!net.verifyMacAddress(mac)){
@@ -28,6 +42,17 @@ public class Main {
             } while (name.isEmpty());
 
             serverDao.insertServer(mac, name);
+
+            Processador serverCpu = cpu.getProcessador();
+            componentDao.insertComponent(serverCpu.getNome(),mac, 1);
+
+            Memoria serverRam = ram.getRam();
+            componentDao.insertComponent("RAM "+serverRam.getTotal(),mac, 2);
+            
+
+            DiscoGrupo serverDisk = disk.getDiscos();
+            String mainDisk = serverDisk.getDiscos().get(0).getModelo();
+            componentDao.insertComponent(mainDisk, mac, 3);
         }
 
 

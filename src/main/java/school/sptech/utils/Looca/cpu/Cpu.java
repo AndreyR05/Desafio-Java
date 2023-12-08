@@ -5,7 +5,15 @@ import com.github.britooo.looca.api.group.processador.Processador;
 
 import school.sptech.utils.interfaces.Executable;
 
-public abstract class Cpu implements Executable {
-    protected final Processador processor = new Looca().getProcessador();
+public class Cpu implements Executable {
+    private final Processador processor = new Looca().getProcessador();
 
+    @Override
+    public Object execute() {
+        return null;
+    }
+
+    public Processador getProcessador(){
+        return processor;
+    }
 }
