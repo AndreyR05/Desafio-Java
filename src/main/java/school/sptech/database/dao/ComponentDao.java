@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import school.sptech.database.DatabaseConnection;
-import school.sptech.model.Component;
-import school.sptech.utils.mapper.ComponentMapper;
+import school.sptech.model.ComponentWithType;
+import school.sptech.utils.mapper.ComponentWithTypeMapper;
 
 public class ComponentDao {
     private JdbcTemplate connection = new DatabaseConnection().getDatabaseConection();
@@ -24,10 +24,15 @@ public class ComponentDao {
         );
     }
 
-    public List<Component> searchComponentByMac(String mac){
-        List<Component> components = connection.query(
-            "SELECT * FROM Component c JOIN Server s ON c.fkServer = s.idServer WHERE s.macAddress = ?",
-            new ComponentMapper(),
+    public List<ComponentWithType> searchComponentByMac(String mac){
+        List<ComponentWithType> components = connection.query(
+            """
+                SELECT * FROM Component c 
+                    JOIN Server s ON c.fkServer = s.idServer
+                    JOIN ComponentType ct ON c.fkComponentType = ct.idComponentType
+                WHERE s.macAddress = ?
+            """,
+            new ComponentWithTypeMapper(),
             mac
         );
 

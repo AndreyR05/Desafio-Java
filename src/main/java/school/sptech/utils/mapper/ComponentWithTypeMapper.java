@@ -17,7 +17,7 @@ public class ComponentWithTypeMapper implements RowMapper<ComponentWithType>{
         component.setFkComponentType(rs.getInt("fkComponentType"));
         component.setFkServer(rs.getInt("fkServer"));
         component.setComponentType(
-            ComponentEnum.valueOf(rs.getString("componentType"))
+            ComponentEnum.valueOf(rs.getString("type"))
         );
 
         return component;

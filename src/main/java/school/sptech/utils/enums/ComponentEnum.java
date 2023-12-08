@@ -2,7 +2,7 @@ package school.sptech.utils.enums;
 
 public enum ComponentEnum {
     CPU(1, "CPU"),
-    MEMORY(2, "Memory"),
+    RAM(2, "Memory"),
     DISK(3, "Disk");
 
     private int value;

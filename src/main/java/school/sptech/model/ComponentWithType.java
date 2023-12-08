@@ -1,6 +1,6 @@
 package school.sptech.model;
 
-import school.sptech.enums.ComponentEnum;
+import school.sptech.utils.enums.ComponentEnum;
 
 public class ComponentWithType extends Component{
     private ComponentEnum componentType;

@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-import school.sptech.Looca.network.Network;
-import school.sptech.Terminal.TerminalOptionPrinter;
-import school.sptech.dao.ComponentDao;
-import school.sptech.dao.ServerDao;
-import school.sptech.model.Component;
+import school.sptech.database.dao.ComponentDao;
+import school.sptech.database.dao.ServerDao;
+import school.sptech.model.ComponentWithType;
+import school.sptech.terminal.TerminalOptionPrinter;
+import school.sptech.utils.Looca.network.Network;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,7 +40,9 @@ public class Main {
                 // TODO: when select get data of hardware
             }
             else if(option == 2){
-                TerminalOptionPrinter.printConfiguration();
+                List<ComponentWithType> components = componentDao.searchComponentByMac(mac);
+
+                TerminalOptionPrinter.printConfiguration(components);
                 String config  = sc.nextLine();
 
                 List<Integer> configChoicesInt = 
@@ -49,10 +51,8 @@ public class Main {
                         .map(Integer::parseInt)
                         .toList();
 
-                List<Component> components = componentDao.searchComponentByMac(mac);
-
                 for (Integer choice : configChoicesInt) {
-                    Optional<Component> component = components.stream()
+                    Optional<ComponentWithType> component = components.stream()
                         .filter(comp -> comp.getFkComponentType().equals(choice))
                         .findFirst();
 
