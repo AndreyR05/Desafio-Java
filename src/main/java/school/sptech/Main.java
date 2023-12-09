@@ -3,6 +3,8 @@ package school.sptech;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import com.github.britooo.looca.api.group.memoria.Memoria;
@@ -43,12 +45,10 @@ public class Main {
 
             serverDao.insertServer(mac, name);
 
-            Processador serverCpu = cpu.getProcessador();
-            componentDao.insertComponent(serverCpu.getNome(),mac, 1);
+            componentDao.insertComponent(cpu.getName(),mac, 1);
 
             Memoria serverRam = ram.getRam();
             componentDao.insertComponent("RAM "+serverRam.getTotal(),mac, 2);
-            
 
             DiscoGrupo serverDisk = disk.getDiscos();
             String mainDisk = serverDisk.getDiscos().get(0).getModelo();
@@ -62,7 +62,15 @@ public class Main {
             sc.nextLine();
 
             if(option == 1){
-                // TODO: when select get data of hardware
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println(cpu.execute());
+                    }
+                };
+                Timer timer = new Timer();
+
+                timer.schedule(task, 0, 10000);
             }
             else if(option == 2){
                 List<ComponentWithType> components = componentDao.searchComponentByMac(mac);

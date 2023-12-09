@@ -3,17 +3,18 @@ package school.sptech.utils.Looca.cpu;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processador.Processador;
 
-import school.sptech.utils.interfaces.Executable;
+import school.sptech.utils.interfaces.Capturable;
 
-public class Cpu implements Executable {
-    private final Processador processor = new Looca().getProcessador();
+public class Cpu implements Capturable {
+    private final Processador processador = new Looca().getProcessador();
 
     @Override
     public Object execute() {
-        return null;
+        return processador.getUso();
     }
 
-    public Processador getProcessador(){
-        return processor;
+    @Override
+    public String getName(){
+        return processador.getNome();
     }
 }
