@@ -1,3 +1,4 @@
+DROP DATABASE javachallenge;
 CREATE DATABASE JavaChallenge;
 
 USE JavaChallenge;
@@ -36,3 +37,8 @@ CREATE TABLE `Capture`(
     `fkComponent` INT,
     FOREIGN KEY (`fkComponent`) REFERENCES `Component`(`idComponent`)
 );
+
+insert into ComponentType values 
+(null,"CPU"),
+(null,"RAM"),
+(null,"DISK");

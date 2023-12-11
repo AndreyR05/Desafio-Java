@@ -52,20 +52,29 @@ public class Main {
             } while (name.isEmpty());
 
             serverDao.insertServer(mac, name);
+            String cpuName = 
+                cpu.getName().length() > 50 ? 
+                    cpu.getName().substring(0, 50) :
+                    cpu.getName();
 
-            componentDao.insertComponent(cpu.getName(),mac, 1);
+            componentDao.insertComponent(cpuName,mac, 1);
 
             Memoria serverRam = ram.getRam();
-            componentDao.insertComponent("RAM "+serverRam.getTotal(),mac, 2);
+
+            String ramName = "RAM "+serverRam.getTotal();
+            String cleanRamName = ramName.length() > 50 ? ramName.substring(0, 50) : ramName;
+
+            componentDao.insertComponent(cleanRamName,mac, 2);
 
             List<Disco> serverDisk = disk.getDiscos();
-            String mainDisk = serverDisk.get(0).getModelo();
+            String mainDisk = 
+                serverDisk.get(0).getModelo().length() > 50 ? 
+                    serverDisk.get(0).getModelo().substring(0, 50) :
+                    serverDisk.get(0).getModelo();
+
             componentDao.insertComponent(mainDisk, mac, 3);
 
-
             System.out.println("Quase pronto, agora você precisa configurar o seu servidor");
-            System.out.println("Pressione enter para continuar");
-            sc.nextLine();
 
             System.out.println("""
             Para que a captura funcione corretamente
@@ -139,6 +148,7 @@ public class Main {
                         }
                         if(mapComponents.get(ComponentEnum.DISK)){
                             diskValue = (Double) disk.execute();
+                            captureDao.insertCapture(mac, ComponentEnum.RAM.getValue(), ramValue);
                             if(diskValue > mapMetrics.get(ComponentEnum.DISK)){
                                 System.out.println("DISK: %f".formatted(diskValue));
                             }
@@ -146,7 +156,6 @@ public class Main {
                         TerminalOptionPrinter.printCaptureData(cpuValue, ramValue, diskValue);
 
                         captureDao.insertCapture(mac, ComponentEnum.CPU.getValue(), cpuValue);
-                        captureDao.insertCapture(mac, ComponentEnum.RAM.getValue(), ramValue);
                         captureDao.insertCapture(mac, ComponentEnum.DISK.getValue(), diskValue);
                     }
                 };
