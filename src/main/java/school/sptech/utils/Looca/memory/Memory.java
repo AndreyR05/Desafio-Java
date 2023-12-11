@@ -10,7 +10,8 @@ public class Memory implements Executable {
 
     @Override
     public Object execute() {
-        return null;
+        Double percent = (double) ram.getEmUso() / (double) ram.getTotal() * 100;
+        return percent;
     }
 
     public Memoria getRam(){
