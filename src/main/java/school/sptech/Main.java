@@ -92,14 +92,7 @@ public class Main {
                         if(mapComponents.get(ComponentEnum.DISK)){
                             diskValue = (Double) disk.execute();
                         }
-                        System.out.println("""
-                        +---------------+
-                        | CPU:  %6.2f%% |
-                        | RAM:  %6.2f%% |
-                        | DISK: %6.2f%% |
-                        +---------------+
-                        Pressione enter para parar a captura
-                        """.formatted(cpuValue, ramValue, diskValue));
+                        TerminalOptionPrinter.printCaptureData(cpuValue, ramValue, diskValue);
                     }
                 };
                 Timer timer = new Timer();
