@@ -16,6 +16,7 @@ import school.sptech.database.dao.ComponentDao;
 import school.sptech.database.dao.MetricDao;
 import school.sptech.database.dao.ServerDao;
 import school.sptech.model.ComponentWithType;
+import school.sptech.model.Metric;
 import school.sptech.terminal.TerminalOptionPrinter;
 import school.sptech.utils.Looca.cpu.Cpu;
 import school.sptech.utils.Looca.disk.Disk;
@@ -30,6 +31,8 @@ public class Main {
         ServerDao serverDao = new ServerDao();
         ComponentDao componentDao = new ComponentDao();
         CaptureDao captureDao = new CaptureDao();
+        MetricDao metricDao = new MetricDao();
+
 
         Network net = new Network();
         Cpu cpu = new Cpu();
@@ -40,6 +43,7 @@ public class Main {
 
         String mac = net.getMacAddress();
         if(!net.verifyMacAddress(mac)){
+            System.out.print("\033[H\033[2J");
             String name;
             System.out.println("O seu servidor aindo não está cadastrado no sistema");
             do {
@@ -64,8 +68,8 @@ public class Main {
             sc.nextLine();
 
             System.out.println("""
-                Para que a captura funcione corretamente
-                E necessario estabelecer metricas para cada componente
+            Para que a captura funcione corretamente
+            E necessario estabelecer metricas para cada componente
             """);
 
             System.out.println("Acima de quantos porcento de uso da CPU você deseja ser notificado?");
@@ -80,7 +84,6 @@ public class Main {
             Double diskMetric = sc.nextDouble();
             sc.nextLine();
 
-            MetricDao metricDao = new MetricDao();
             metricDao.insertMetric(mac, ComponentEnum.CPU.getValue(), cpuMetric);
 
             metricDao.insertMetric(mac, ComponentEnum.RAM.getValue(), ramMetric);
@@ -103,11 +106,18 @@ public class Main {
                     @Override
                     public void run() {
                         List<ComponentWithType> components = componentDao.searchComponentByMac(mac);
+                        List<Metric> metrics = metricDao.getMetricByServer(mac);
 
                         Map<ComponentEnum, Boolean> mapComponents = components.stream().collect(
                                 Collectors.toMap(
                                     ComponentWithType::getComponentType,
                                     ComponentWithType::isEnable
+                                ));
+
+                        Map<ComponentEnum, Double> mapMetrics = metrics.stream().collect(
+                                Collectors.toMap(
+                                    Metric::getType,
+                                    Metric::getValue
                                 ));
 
                         Double cpuValue = 0.0;
@@ -117,12 +127,21 @@ public class Main {
                         System.out.print("\033[H\033[2J");
                         if(mapComponents.get(ComponentEnum.CPU)){
                             cpuValue = (Double) cpu.execute();
+                            if(cpuValue > mapMetrics.get(ComponentEnum.CPU)){
+                                System.out.println("CPU: %f".formatted(cpuValue));
+                            }
                         }
                         if(mapComponents.get(ComponentEnum.RAM)){
                             ramValue = (Double) ram.execute();
+                            if(ramValue > mapMetrics.get(ComponentEnum.RAM)){
+                                System.out.println("RAM: %f".formatted(ramValue));
+                            }
                         }
                         if(mapComponents.get(ComponentEnum.DISK)){
                             diskValue = (Double) disk.execute();
+                            if(diskValue > mapMetrics.get(ComponentEnum.DISK)){
+                                System.out.println("DISK: %f".formatted(diskValue));
+                            }
                         }
                         TerminalOptionPrinter.printCaptureData(cpuValue, ramValue, diskValue);
 
