@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.github.britooo.looca.api.group.discos.Disco;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 
+import school.sptech.database.dao.CaptureDao;
 import school.sptech.database.dao.ComponentDao;
 import school.sptech.database.dao.ServerDao;
 import school.sptech.model.ComponentWithType;
@@ -27,6 +28,7 @@ public class Main {
 
         ServerDao serverDao = new ServerDao();
         ComponentDao componentDao = new ComponentDao();
+        CaptureDao captureDao = new CaptureDao();
 
         Network net = new Network();
         Cpu cpu = new Cpu();
@@ -93,6 +95,10 @@ public class Main {
                             diskValue = (Double) disk.execute();
                         }
                         TerminalOptionPrinter.printCaptureData(cpuValue, ramValue, diskValue);
+
+                        captureDao.insertCapture(mac, ComponentEnum.CPU.getValue(), cpuValue);
+                        captureDao.insertCapture(mac, ComponentEnum.RAM.getValue(), ramValue);
+                        captureDao.insertCapture(mac, ComponentEnum.DISK.getValue(), diskValue);
                     }
                 };
                 Timer timer = new Timer();

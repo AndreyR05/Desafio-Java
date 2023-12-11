@@ -42,7 +42,7 @@ public class TerminalOptionPrinter {
 
     static public void printCaptureData(Double cpu, Double ram, Double disk){
         System.out.println("""
-        +---------------+
+            +---------------+
             | CPU:  %6.2f%% |
             | RAM:  %6.2f%% |
             | DISK: %6.2f%% |
