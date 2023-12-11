@@ -78,23 +78,28 @@ public class Main {
                                     ComponentWithType::isEnable
                                 ));
 
-                        System.out.print("\033[H\033[2J");
+                        Double cpuValue = 0.0;
+                        Double ramValue = 0.0;
+                        Double diskValue = 0.0;
 
-                        System.out.println("+---------------+");
+                        System.out.print("\033[H\033[2J");
                         if(mapComponents.get(ComponentEnum.CPU)){
-                            Double cpuValue = (Double) cpu.execute();
-                            System.out.println("| CPU:  %6.2f%% |".formatted(cpuValue));
+                            cpuValue = (Double) cpu.execute();
                         }
                         if(mapComponents.get(ComponentEnum.RAM)){
-                            Double ramValue = (Double) ram.execute();
-                            System.out.println("| RAM:  %6.2f%% |".formatted(ramValue));
+                            ramValue = (Double) ram.execute();
                         }
                         if(mapComponents.get(ComponentEnum.DISK)){
-                            Double diskValue = (Double) disk.execute();
-                            System.out.println("| DISK: %6.2f%% |".formatted(diskValue));
+                            diskValue = (Double) disk.execute();
                         }
-                        System.out.println("+---------------+");
-                        System.out.println("Pressione enter para parar a captura");
+                        System.out.println("""
+                        +---------------+
+                        | CPU:  %6.2f%% |
+                        | RAM:  %6.2f%% |
+                        | DISK: %6.2f%% |
+                        +---------------+
+                        Pressione enter para parar a captura
+                        """.formatted(cpuValue, ramValue, diskValue));
                     }
                 };
                 Timer timer = new Timer();
