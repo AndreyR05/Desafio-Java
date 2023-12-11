@@ -13,6 +13,7 @@ import com.github.britooo.looca.api.group.memoria.Memoria;
 
 import school.sptech.database.dao.CaptureDao;
 import school.sptech.database.dao.ComponentDao;
+import school.sptech.database.dao.MetricDao;
 import school.sptech.database.dao.ServerDao;
 import school.sptech.model.ComponentWithType;
 import school.sptech.terminal.TerminalOptionPrinter;
@@ -56,6 +57,35 @@ public class Main {
             List<Disco> serverDisk = disk.getDiscos();
             String mainDisk = serverDisk.get(0).getModelo();
             componentDao.insertComponent(mainDisk, mac, 3);
+
+
+            System.out.println("Quase pronto, agora você precisa configurar o seu servidor");
+            System.out.println("Pressione enter para continuar");
+            sc.nextLine();
+
+            System.out.println("""
+                Para que a captura funcione corretamente
+                E necessario estabelecer metricas para cada componente
+            """);
+
+            System.out.println("Acima de quantos porcento de uso da CPU você deseja ser notificado?");
+            Double cpuMetric = sc.nextDouble();
+            sc.nextLine();
+
+            System.out.println("Acima de quantos porcento de uso da RAM você deseja ser notificado?");
+            Double ramMetric = sc.nextDouble();
+            sc.nextLine();
+            
+            System.out.println("Acima de quantos porcento de uso do Disco você deseja ser notificado?");
+            Double diskMetric = sc.nextDouble();
+            sc.nextLine();
+
+            MetricDao metricDao = new MetricDao();
+            metricDao.insertMetric(mac, ComponentEnum.CPU.getValue(), cpuMetric);
+
+            metricDao.insertMetric(mac, ComponentEnum.RAM.getValue(), ramMetric);
+
+            metricDao.insertMetric(mac, ComponentEnum.DISK.getValue(), diskMetric);
         }
 
 
