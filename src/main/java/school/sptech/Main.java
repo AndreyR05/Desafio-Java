@@ -136,12 +136,14 @@ public class Main {
                         System.out.print("\033[H\033[2J");
                         if(mapComponents.get(ComponentEnum.CPU)){
                             cpuValue = (Double) cpu.execute();
+                            captureDao.insertCapture(mac, ComponentEnum.CPU.getValue(), cpuValue);
                             if(cpuValue > mapMetrics.get(ComponentEnum.CPU)){
                                 System.out.println("CPU: %f".formatted(cpuValue));
                             }
                         }
                         if(mapComponents.get(ComponentEnum.RAM)){
                             ramValue = (Double) ram.execute();
+                            captureDao.insertCapture(mac, ComponentEnum.DISK.getValue(), diskValue);
                             if(ramValue > mapMetrics.get(ComponentEnum.RAM)){
                                 System.out.println("RAM: %f".formatted(ramValue));
                             }
@@ -155,8 +157,6 @@ public class Main {
                         }
                         TerminalOptionPrinter.printCaptureData(cpuValue, ramValue, diskValue);
 
-                        captureDao.insertCapture(mac, ComponentEnum.CPU.getValue(), cpuValue);
-                        captureDao.insertCapture(mac, ComponentEnum.DISK.getValue(), diskValue);
                     }
                 };
                 Timer timer = new Timer();
